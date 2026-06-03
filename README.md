@@ -2,44 +2,65 @@
 
 ## Descrição
 
-Este projeto apresenta um sistema inteligente de iluminação residencial utilizando ESP32, sensor LDR e protocolo MQTT.
+Este projeto apresenta um sistema inteligente de iluminação utilizando ESP32, sensor LDR e protocolo MQTT.
 
-O sistema monitora automaticamente a luminosidade do ambiente através de um sensor LDR. Quando o ambiente apresenta baixa luminosidade, o ESP32 aciona um LED automaticamente.
+O sistema monitora automaticamente a luminosidade do ambiente por meio de um sensor LDR. Quando a luminosidade fica abaixo de um limite definido, o ESP32 aciona automaticamente um LED, simulando o funcionamento de uma luminária inteligente. Quando a luminosidade aumenta, o LED é desligado automaticamente.
 
-As informações de luminosidade e estado do LED são transmitidas via protocolo MQTT utilizando conexão TCP/IP através da internet.
+Além do funcionamento automático, o sistema permite monitoramento e controle remoto em tempo real através do protocolo MQTT, possibilitando o acionamento manual da iluminação por meio de comandos enviados pelo MQTT Explorer.
 
 ## Componentes Utilizados
 
-- ESP32
-- Sensor LDR
-- LED
-- Resistores
-- Jumpers
-- Plataforma Wokwi
-- MQTT Explorer
-- Broker MQTT Mosquitto
+* ESP32
+* Sensor LDR
+* LED
+* Resistores
+* Jumpers
+* Plataforma Wokwi
+* MQTT Explorer
+* Broker MQTT
 
 ## Funcionamento
 
-O sensor LDR realiza a leitura da luminosidade do ambiente.
+O sensor LDR realiza a leitura contínua da luminosidade do ambiente.
 
-Os dados são processados pelo ESP32, que toma a decisão de ligar ou desligar o LED automaticamente.
+Os dados são processados pelo ESP32, que decide automaticamente ligar ou desligar o LED conforme o nível de iluminação detectado.
 
-Os dados também são enviados para um broker MQTT utilizando os tópicos:
+O ESP32 publica informações em tempo real através dos seguintes tópicos MQTT:
 
-- biazinha/luminosidade
-- biazinha/luz/status
+* smartlight/luminosidade
+* smartlight/status
+* smartlight/modo
 
-O MQTT Explorer é utilizado para monitorar as mensagens em tempo real.
+Além disso, o sistema recebe comandos pelo tópico:
+
+* smartlight/comando
+
+Comandos disponíveis:
+
+* ON → Liga a lâmpada manualmente
+* OFF → Desliga a lâmpada manualmente
+* AUTO → Retorna o sistema para o modo automático
+
+O MQTT Explorer é utilizado para monitorar as mensagens e enviar comandos ao sistema em tempo real.
 
 ## Protocolo MQTT
 
-O protocolo MQTT foi utilizado para permitir comunicação leve e eficiente entre o dispositivo ESP32 e o broker MQTT através da internet.
+O protocolo MQTT foi utilizado para permitir uma comunicação leve e eficiente entre o ESP32 e o broker MQTT através da Internet.
 
-O broker utilizado foi:
+Broker utilizado:
 
 test.mosquitto.org
 
+## Funcionalidades
+
+* Monitoramento da luminosidade em tempo real
+* Acionamento automático da iluminação
+* Publicação do status da lâmpada
+* Indicação do modo de operação (Automático ou Manual)
+* Controle remoto via MQTT
+* Simulação completa na plataforma Wokwi
+
 ## Autor
 
-Projeto desenvolvido por Beatriz Pinheiro
+Projeto desenvolvido por Beatriz Pinheiro.
+
